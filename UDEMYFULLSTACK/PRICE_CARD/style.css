@@ -1,0 +1,144 @@
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+body{
+    background-color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.panel{
+    background-color: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 980px;
+    display: flex;
+    flex-direction: column;
+}
+.pricing-plan{
+    text-align: center;
+    text-transform: uppercase;
+    font-family: open sans, sans-serif;
+    border-bottom: 1px solid #ddd;
+}
+.pricing-plan:last-child{
+    border-bottom: none;
+}
+.pricing-img{
+    max-width: 100%;
+    margin-bottom: 25px;
+}
+
+.pricing-header{
+    font-size: 1.3em;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.pricing-features{
+    color: rgb(2, 181, 252);
+    line-height: 2;
+    font-size: 0.8em;
+    border-top: 1px solid #ddd;
+}
+.pricing-features-item{
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+.pricing-price{
+    font-size: 1.5em;
+    font-weight: 900;
+    margin: 20px 0;
+    display: block;
+}
+.pricing-button{
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: rgb(2, 181, 252);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+.pricing-button:hover{
+    background-color: rgb(0, 150, 220);
+    transition: background-color 0.3s ease;
+}
+
+.pricing-button:active{
+    background-color: rgb(0, 120, 180);
+    transition: background-color 0.1s ease;
+}
+.is-featured{
+    background-color: rgb(0, 4, 255);
+}
+
+@media (min-width: 800px) {
+    .panel{
+        flex-direction: row;
+    }
+    .pricing-plan{
+    border-bottom: none;
+    border-right: 1px solid #ddd;
+    flex: 1;
+    padding: 20px 10px;
+}
+.pricing-img{
+    max-width: 80%;
+    margin: 0 auto 25px;
+}
+.pricing-plan:last-child{
+    border-right: none;
+}
+.pricing-features-item{
+    padding-bottom: 0;
+}
+
+}

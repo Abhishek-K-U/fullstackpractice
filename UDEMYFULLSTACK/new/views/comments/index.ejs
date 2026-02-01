@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMMENTS</title>
+</head>
+<body>
+    <h1>COMMENTS</h1>
+    <ul>
+        <% for(let c of comments){%>
+            <li><b><%=c.username %></b> &nbsp; ->>> <%=c.comment%></li>
+            <a href="/comments/<%=c.id%>">View Details</a>
+            <br><br>
+        <%}%>
+        
+    </ul>
+    <a href="/comments/new">Add New Comment</a>
+</body>
+</html>
