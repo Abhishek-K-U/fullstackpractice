@@ -1,0 +1,8 @@
+<%- include('partials/head') %>
+    <!-- <h1>The random number is <%= Math.floor(Math.random()*10)+1 %> </h1> -->
+    <h1>The random number is <%= rand %> </h1>
+    <%  if(rand %2===0){%>
+    <h2>This is a even number!!</h2>
+    <% }else{%>
+     <h2>This is odd </h2>
+    <% }%>

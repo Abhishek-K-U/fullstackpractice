@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= name %></title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <h1>This page is from <b style="color:blue;"><%=name%></b></h1>
+    <p><img src="<%=image%>"></p>
+    <p><%=description%></p>
+    <div>
+        <% for(let post of posts){%>
+            <div style="border:1px solid black; margin:10px; padding:10px;">
+                <h2><%=post.title%></h2>
+                <p><%=post.author%></p>
+            </div>
+        <%}%>
+    </div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+{
+  "chess": {
+    "name": "Chess",
+    "description": "A classic strategy board game played between two players involving kings, queens, and pawns.",
+    "numberOfPlayers": 2,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/ChessSet.jpg/250px-ChessSet.jpg",
+    "posts": [
+      { "title": "Opening Strategies", "author": "John Doe" },
+      { "title": "Famous Matches", "author": "Jane Smith" },
+      { "title": "Endgame Techniques", "author": "Alex Carter" }
+    ]
+  },
+  "monopoly": {
+    "name": "Monopoly",
+    "description": "A property trading board game where players buy, sell, and trade properties to bankrupt opponents.",
+    "numberOfPlayers": 6,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Monopoly_logo_white_border.svg/250px-Monopoly_logo_white_border.svg.png",
+    "posts": [
+      { "title": "Winning Tactics", "author": "Sarah Johnson" },
+      { "title": "Best Property Deals", "author": "Michael Brown" },
+      { "title": "Trading Secrets", "author": "Emily Davis" }
+    ]
+  },
+  "football": {
+    "name": "Football",
+    "description": "A team sport played between two teams of eleven players with a spherical ball on a rectangular field.",
+    "numberOfPlayers": 22,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Football_in_Bloomington%2C_Indiana%2C_1995.jpg/250px-Football_in_Bloomington%2C_Indiana%2C_1995.jpg",
+    "posts": [
+      { "title": "World Cup Highlights", "author": "Chris Evans" },
+      { "title": "Top Players", "author": "David Wilson" },
+      { "title": "Training Tips", "author": "Laura Martinez" }
+    ]
+  },
+  "ludo": {
+    "name": "Ludo",
+    "description": "A strategy board game for two to four players, in which players race their tokens from start to finish.",
+    "numberOfPlayers": 4,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Ludo-3.jpg/250px-Ludo-3.jpg",
+    "posts": [
+      { "title": "Luck vs Strategy", "author": "Sophia White" },
+      { "title": "Playing with Friends", "author": "James Hall" },
+      { "title": "Winning Tricks", "author": "Olivia Lewis" }
+    ]
+  },
+  "cricket": {
+    "name": "Cricket",
+    "description": "A bat-and-ball game played between two teams of eleven players on a circular field.",
+    "numberOfPlayers": 22,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Pollock_to_Hussey.jpg/330px-Pollock_to_Hussey.jpg",
+    "posts": [
+      { "title": "IPL Moments", "author": "Ravi Kumar" },
+      { "title": "Greatest Batsmen", "author": "Anita Sharma" },
+      { "title": "Bowling Masterclass", "author": "Vikram Singh" }
+    ]
+  },
+  "carrom": {
+    "name": "Carrom",
+    "description": "A popular tabletop game played with a striker and wooden discs on a square board.",
+    "numberOfPlayers": 4,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Carrom.jpg/250px-Carrom.jpg",
+    "posts": [
+      { "title": "Carrom Basics", "author": "Neha Patel" },
+      { "title": "Perfect Striker Shots", "author": "Rajesh Mehta" },
+      { "title": "Tournament Rules", "author": "Kiran Desai" }
+    ]
+  }
+}
