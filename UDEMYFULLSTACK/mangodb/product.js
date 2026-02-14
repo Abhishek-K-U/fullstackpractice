@@ -14,14 +14,19 @@ mongoose.connect('mongodb://localhost:27017/shopApp')
         },
         price: {
             type: Number,
-            required: true,
+            required: true
+        },
+        onSale: {
+            type: Boolean,
+            default: false
         }
     })
     const Product = mongoose.model('Product', productSchema);  //creates products collection in the database
-    const bike= new Product({name:"Mountain Bike",price:500});
+    const bike= new Product({name:"EV Bike",price: 36.9});
     bike.save()
-    .then(() => {
+    .then((data) => {
         console.log('Product saved successfully!');
+        console.log(data);
     })
     .catch((err) => {
         console.error('Save error:', err);
