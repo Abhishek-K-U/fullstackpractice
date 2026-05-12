@@ -1,6 +1,6 @@
 <% layout('layouts/boillerplate') %>
 <div class="row mb-3">
-  <div class="col-6 offset-3">
+  <div class="col-6">
     <h1 class="text-center">SHOW PAGE</h1>
     <div class="card">
       <img
@@ -30,9 +30,46 @@
           <button class="btn btn-danger" type="submit">Delete</button>
         </form>
       </div>
-       <div class="card-footer text-muted">
-        <a href="/campgrounds">Back to Campgrounds</a>
+          <div class="card-footer text-muted">
+            <a href="/campgrounds">Back to Campgrounds</a>
+          </div>
     </div>
     </div>
-  </div>
+     <div class="col-6">
+      <h2>Leave a Review</h2>
+          <form action="/campgrounds/<%= campground._id %>/reviews"  method="POST" class="mb-3 needs-validation" novalidate>
+            <div class="mb-3">
+              <label for="rating" class="form-label">Rating</label>
+              <input class="form-range" type="range" name="review[rating]" min="1" max="5" id="rating">
+            </div>
+            <div class="mb-3">
+              <label for="body" class="form-label">Review</label>
+              <textarea
+                class="form-control"
+                id="body"
+                rows="3"
+                name="review[body]"
+                placeholder="Write a review..."
+                required
+              ></textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Submit</button>
+          </form>
+
+          <% for (let review of campground.reviews) { %>
+            <div class="card mb-3">
+              <div class="card-body">
+                <h5 class="card-title">Rating: <%= review.rating %> / 5</h5>
+                <p class="card-text">Review: <%= review.body %></p>
+                  <form
+                    class="d-inline"
+                    action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE"
+                    method="POST"
+                  >
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                  </form>
+              </div>
+            </div>
+          <% } %>
+            </div>
 </div>
