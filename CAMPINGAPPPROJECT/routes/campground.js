@@ -1,44 +1,63 @@
-const express = require('express');
-const router = express.Router();
-const cookieParser=require('cookie-parser');
-const session=require('express-session');
-router.use(cookieParser('oggyboogy'));
+const express=require("express");
+const router=express.Router();
+const Campground=require('../models/campground');
+const catchAsync=require('../utills/catchAsync');
+const ExpressError=require('../utills/ExpressError');
+const { campgroundSchema } = require('../schemas');
 
-router.use((req,res,next)=>{
-    if(req.query.isAdmin){
-        return next();
+
+const validateCampground=(req,res,next)=>{
+    const { error } = campgroundSchema.validate(req.body);
+    if(error){
+        const msg=error.details.map(el=>el.message).join(",");
+        throw new ExpressError(msg,400);
+    }else{
+    next();
     }
-    res.send("Sorry, you need admin access to view this");
+};
+
+router.get("/",catchAsync(async(req,res)=>{
+    const campgrounds=await Campground.find({});
+    res.render('campgrounds/index',{campgrounds});
+}));
+router.get("/new",(req,res)=>{
+    res.render('campgrounds/new');
 });
+router.post("/",validateCampground,catchAsync(async(req,res,next)=>{
+    // if(!req.body.campground) throw new ExpressError("Invalid Campground Data",400); 
+    const campground=new Campground(req.body.campground);
+    await campground.save();
+    req.flash('success','Successfully made a new campground!');
+    res.redirect(`/campgrounds/${campground._id}`);
+}));
 
-router.use(session({secret: 'oggy', resave: false, saveUninitialized: true}));
-
-router.get('/', (req, res) => {
-    if(req.session.count){
-        req.session.count+=1;
+router.get('/:id',catchAsync(async(req,res)=>{
+    const campground=await Campground.findById(req.params.id).populate('reviews');
+    if(!campground){
+        req.flash('error','Cannot find that campground!');
+        return res.redirect('/campgrounds');
     }
-    else{
-        req.session.count=1;
+    res.render('campgrounds/show',{campground});
+}));
+router.get('/:id/edit',catchAsync(async(req,res)=>{
+    const campground=await Campground.findById(req.params.id);
+    if(!campground){
+        req.flash('error','Cannot find that campground!');
+        return res.redirect('/campgrounds');
     }
-    const {fruit = 'No Name'} = req.cookies;
-    res.send(`The fruit is: ${fruit}, and you have viewed this page ${req.session.count} times`);
-    // res.send(`You have viewed this page ${req.session.count} times`);
-    //res.send('This is the campgrounds page');
-});
-router.get('/:id', (req, res) => {
-    const {username='No Name'}=req.query;
-    req.session.username=username;
-    res.send(`welcome back ${username}`);
-});
-router.get('/:id/edit', (req, res) => {
-    const {username} = req.session;
-    res.send(`welcome back ${username}`);
-});
+    res.render('campgrounds/edit',{campground});
+}));
+router.put('/:id',catchAsync(async(req,res)=>{
+    const {id}=req.params;
+    const campground=await Campground.findByIdAndUpdate(id,{...req.body.campground});
+    req.flash('success','Successfully updated campground!');
+    res.redirect(`/campgrounds/${campground._id}`);
+}));
+router.delete('/:id',catchAsync(async(req,res)=>{
+    const {id}=req.params;
+    await Campground.findByIdAndDelete(id);
+    req.flash('success','Successfully deleted campground!');
+    res.redirect('/campgrounds');
+}));
 
-router.get('/:id/edit/secret', (req, res) => {
-    res.cookie('cartoon','tom',{signed:true});
-    console.log(res.cookie);
-    res.send('This is a secret page');
-});
-
-module.exports = router;
+module.exports=router;
