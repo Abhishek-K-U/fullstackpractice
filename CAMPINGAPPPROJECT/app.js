@@ -7,9 +7,16 @@ const  morgan=require("morgan");
 const ejsMate=require("ejs-mate");
 const campRouter=require('./routes/campground');
 const reviewRouter=require('./routes/reviews');
+const userRouter=require('./routes/users');
 const session=require('express-session');
 const cookieParser=require('cookie-parser');
 const flash=require('connect-flash');
+const passport=require('passport');
+const LocalStrategy=require('passport-local');
+const User=require('./models/user');
+
+
+
 mongoose.connect('mongodb://localhost:27017/yelp-camp')
 .then(()=>{
     console.log("Mongo Connection Open");
@@ -44,6 +51,11 @@ const sessionConfig = {
 }
 app.use(session(sessionConfig));
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.use((req,res,next)=>{
     res.locals.success=req.flash('success');
@@ -51,12 +63,20 @@ app.use((req,res,next)=>{
     next();
 });
 
+app.use('/', userRouter);
 app.use('/campgrounds', campRouter);
 app.use('/campgrounds/:id/reviews', reviewRouter);
+
 
 app.get("/",(req,res)=>{
     console.log(req.requestTime);
     res.render('home');
+});
+
+app.get("/fakeUser",async(req,res)=>{
+    const user=new User({email:'abhi@gmail.com',username:'abhi'});
+    const newUser=await User.register(user,'chicken');
+    res.send(newUser);
 });
 
 app.all('/{*path}',(req,res,next)=>{
