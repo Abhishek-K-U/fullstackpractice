@@ -67,29 +67,35 @@ app.use((req,res,next)=>{
 app.use('/', userRouter);
 app.use('/campgrounds', campRouter);
 app.use('/campgrounds/:id/reviews', reviewRouter);
-
-
 app.get("/",(req,res)=>{
     console.log(req.requestTime);
     res.render('home');
 });
-
-app.get("/fakeUser",async(req,res)=>{
-    const user=new User({email:'abhi@gmail.com',username:'abhi'});
-    const newUser=await User.register(user,'chicken');
-    res.send(newUser);
-});
-
 app.all('/{*path}',(req,res,next)=>{
     next(new ExpressError("Page Not Found",404));
 });
-
 app.use((err, req, res, next) => {
     const {statusCode=500}=err;
     if(!err.message) err.message="Oh No, Something Went Wrong!";
     res.status(statusCode).render('error',{err});
 });
-
 app.listen(3000,()=>{
     console.log("Server is running on port 3000");
 });
+
+
+
+
+
+
+
+
+
+
+
+
+// app.get("/fakeUser",async(req,res)=>{
+//     const user=new User({email:'abhi@gmail.com',username:'abhi'});
+//     const newUser=await User.register(user,'chicken');
+//     res.send(newUser);
+// });
