@@ -1,5 +1,8 @@
 const Campground=require('../models/campground');
 const {cloudinary}=require('../cloudinary');
+const maptiler=require('@maptiler/client');
+
+maptiler.config.apiKey=process.env.MAP_API_KEY;
 
 module.exports.index = async(req,res)=>{
     const campgrounds=await Campground.find({});
@@ -9,7 +12,15 @@ module.exports.newForm = (req,res)=>{
     res.render('campgrounds/new');
 };
 module.exports.createCampground=async(req,res,next)=>{ 
+    const geodata=await maptiler.geocoding.forward(req.body.campground.location,{limit:1});
+    // console.log(geodata.features[0]);
+    if(!geodata.features?.length){
+        req.flash('error','Invalid location!');
+        return res.redirect('/campgrounds/new');
+    }
     const campground=new Campground(req.body.campground);
+    campground.geometry = geodata.features[0].geometry;
+    campground.location = geodata.features[0].place_name;
     campground.images=req.files.map(f=>({url:f.path,filename:f.filename}));
     campground.author=req.user._id;
     await campground.save();
@@ -40,7 +51,15 @@ module.exports.editCampground=async(req,res)=>{
 };
 module.exports.updateCampground=async(req,res)=>{
     const {id}=req.params;
-    console.log(req.body);
+    // console.log(req.body);
+    const geodata=await maptiler.geocoding.forward(req.body.campground.location,{limit:1});
+    // console.log(geodata.features[0]);
+    if(!geodata.features?.length){
+        req.flash('error','Invalid location!');
+        return res.redirect('/campgrounds/new');
+    }
+    campground.geometry = geodata.features[0].geometry;
+    campground.location = geodata.features[0].place_name;
     const campground=await Campground.findByIdAndUpdate(id,{...req.body.campground});
     const imgs=req.files.map(f=>({url:f.path,filename:f.filename}));
     campground.images.push(...imgs);
