@@ -52,15 +52,19 @@ module.exports.editCampground=async(req,res)=>{
 module.exports.updateCampground=async(req,res)=>{
     const {id}=req.params;
     // console.log(req.body);
-    const geodata=await maptiler.geocoding.forward(req.body.campground.location,{limit:1});
+    
     // console.log(geodata.features[0]);
+    const geodata=await maptiler.geocoding.forward(req.body.campground.location,{limit:1});
     if(!geodata.features?.length){
         req.flash('error','Invalid location!');
-        return res.redirect('/campgrounds/new');
+        return res.redirect('/campgrounds/{$id}/edit');
     }
+    
+    const campground=await Campground.findByIdAndUpdate(id,{...req.body.campground});
+    
     campground.geometry = geodata.features[0].geometry;
     campground.location = geodata.features[0].place_name;
-    const campground=await Campground.findByIdAndUpdate(id,{...req.body.campground});
+    console.log(geodata.features[0]);
     const imgs=req.files.map(f=>({url:f.path,filename:f.filename}));
     campground.images.push(...imgs);
     await campground.save();

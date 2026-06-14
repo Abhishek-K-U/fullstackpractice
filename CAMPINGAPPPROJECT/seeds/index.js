@@ -29,6 +29,13 @@ const seedDB=async()=>{
             // image:'https://picsum.photos/200',
             description:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, eaque.',
             price,
+             geometry: {
+                type: "Point",
+                coordinates: [
+                    cities[random1000].longitude,
+                    cities[random1000].latitude,
+                ]
+            },
             images: [
             {
                     url: 'https://res.cloudinary.com/dzhw9xbrg/image/upload/v1780854796/YelpCamp/zuki4lkmzkr6uvokmxm5.jpg',
