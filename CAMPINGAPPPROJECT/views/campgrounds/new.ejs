@@ -1,7 +1,9 @@
 <% layout('layouts/boillerplate') %>
     <div class="row">
         <h1 class="text-center">New Campgrounds</h1>
-        <div class="col-6 offset-3">
+        <div class="col-md-6 offset-md-3">
+            <div class="card shadow">
+                <div class="card-body">
             <form action="/campgrounds" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="title" class="form-label">Campground title</label>
@@ -45,8 +47,10 @@
                         Looks good!
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Add Campgrounds</button>
+                <button type="submit" class="btn btn-primary w-100">Add Campgrounds</button>
             </form>
             <a href="/campgrounds" class="mt-2">Back to Campgrounds</a>
+            </div>  
         </div>
+    </div>
     </div>

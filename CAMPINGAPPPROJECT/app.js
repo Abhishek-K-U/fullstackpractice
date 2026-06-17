@@ -1,3 +1,4 @@
+const sanitizeV5 = require('./utills/mongoSanitizeV5.js');
 if(process.env.NODE_ENV!=="production"){
     require('dotenv').config();
 }
@@ -34,6 +35,7 @@ db.once("open",()=>{
     console.log("Database connected");
 });
 const app=express();
+app.set('query parser', 'extended');
 app.engine('ejs',ejsMate);
 app.use(morgan('tiny'));
 app.use(express.urlencoded({extended:true}));
@@ -41,6 +43,7 @@ app.use(methodOverride('_method'));
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'views'));
 app.use(express.static(path.join(__dirname,'public')));
+app.use(sanitizeV5({ replaceWith: '_' }));
 app.use(cookieParser('oggyboogy'));
 const sessionConfig = {
     secret: 'oggy', 
