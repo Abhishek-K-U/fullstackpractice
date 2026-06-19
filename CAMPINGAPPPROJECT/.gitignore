@@ -3,3 +3,6 @@ node_modules/
 .env 
 CAMPINGAPPPROJECT/.env 
 CAMPINGAPPPROJECT/node_modules/ 
+.vscode
+.vercel
+.vercelignore

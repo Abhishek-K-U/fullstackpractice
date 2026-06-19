@@ -21,10 +21,10 @@ const LocalStrategy=require('passport-local');
 const User=require('./models/user');
 const helmet=require('helmet');
 const { MongoStore } = require('connect-mongo');
-// const dbUrl=process.env.DB_URL; 
+const dbUrl=process.env.DB_URL; 
 // 'mongodb://localhost:27017/yelp-camp';    
-const dbUrl= 'mongodb://localhost:27017/yelp-camp'; 
-mongoose.connect(dbUrl)
+
+mongoose.connect(dbUrl || 'mongodb://localhost:27017/yelp-camp')
 .then(()=>{
     console.log("Mongo Connection Open");
 })
@@ -48,11 +48,12 @@ app.set('views',path.join(__dirname,'views'));
 app.use(express.static(path.join(__dirname,'public')));
 app.use(sanitizeV5({ replaceWith: '_' }));
 app.use(cookieParser('oggyboogy'));
+const secret= process.env.SECRET || 'oggy';
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     touchAfter: 24 * 60 * 60,
     crypto: {
-        secret: 'oggy'
+        secret: secret
     }
 });
 
@@ -62,7 +63,7 @@ store.on("error", function(e) {
 const sessionConfig = {
     store,
     name:'qmwnebvr',
-    secret: 'oggy', 
+    secret: secret, 
     resave: false, 
     saveUninitialized: true,
     cookie: {
@@ -146,8 +147,11 @@ app.use((err, req, res, next) => {
     if(!err.message) err.message="Oh No, Something Went Wrong!";
     res.status(statusCode).render('error',{err});
 });
-app.listen(3000,()=>{
-    console.log("Server is running on port 3000");
+
+const port=process.env.PORT || 3000;
+
+app.listen(port,()=>{
+    console.log(`Server is running on port ${port}`);
 });
 
 
